@@ -1,0 +1,443 @@
+{
+  "version": "v3_single_scale_session",
+  "name": "单量表对话式心理状态评估",
+  "description": "每次评估会话只绑定一张心理量表。系统将量表题项转化为自然对话问题，只有全部必填题项获得有效回答后，结果才进入正式评分和用户画像更新。",
+  "rules": {
+    "singleScaleOnly": true,
+    "requireCompleteScale": true,
+    "incompleteResultPolicy": "invalid_for_scoring",
+    "normalChatPolicy": "普通聊天只用于动态画像沉淀，不进入正式量表评分。",
+    "crisisPolicy": "如出现明确自伤、自杀意图、计划或行为，优先进入安全风险与人工介入流程。"
+  },
+  "scales": [
+    {
+      "id": "PHQ9",
+      "name": "PHQ-9",
+      "label": "抑郁相关症状筛查",
+      "description": "用于评估近两周内低落、兴趣下降、睡眠、精力、注意力、自我评价、动作变化和安全风险等情况。本系统仅用于对话式筛查和管理员复核，不作为医学诊断。",
+      "timeWindow": "最近两周",
+      "scoreRange": "0-27",
+      "completionRequired": 9,
+      "severity": [
+        {
+          "level": "low",
+          "min": 0,
+          "max": 4,
+          "label": "低风险或轻微波动"
+        },
+        {
+          "level": "medium",
+          "min": 5,
+          "max": 14,
+          "label": "需要关注的中等风险"
+        },
+        {
+          "level": "high",
+          "min": 15,
+          "max": 27,
+          "label": "高风险关注"
+        }
+      ],
+      "items": [
+        {
+          "code": "phq9_01_anhedonia",
+          "dimension": "mood",
+          "construct": "兴趣或愉快感下降",
+          "prompt": "最近两周，原本能让你放松或者有点兴趣的事情，你还愿意去做吗？这种情况大概出现得多频繁？",
+          "keywords": [
+            "没兴趣",
+            "没意思",
+            "不想做",
+            "提不起劲",
+            "什么都不想",
+            "空"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_02_low_mood",
+          "dimension": "mood",
+          "construct": "情绪低落或无望感",
+          "prompt": "最近两周，低落、难受或者没有希望的感觉出现得多吗？是偶尔，还是大部分时间都在？",
+          "keywords": [
+            "低落",
+            "难受",
+            "沮丧",
+            "没希望",
+            "崩溃",
+            "完蛋",
+            "撑不住"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_03_sleep",
+          "dimension": "sleep",
+          "construct": "睡眠困难或睡眠过多",
+          "prompt": "最近两周睡眠怎么样？比如入睡困难、半夜醒、睡太多，或者睡醒还是很累，这些情况多吗？",
+          "keywords": [
+            "睡不着",
+            "失眠",
+            "睡眠",
+            "熬夜",
+            "两三点",
+            "睡太多",
+            "醒"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_04_energy",
+          "dimension": "body",
+          "construct": "疲惫或精力下降",
+          "prompt": "最近两周身体和脑子是不是更容易累？哪怕没做太多事，也觉得没力气的情况多吗？",
+          "keywords": [
+            "累",
+            "疲惫",
+            "没力气",
+            "无力",
+            "困",
+            "精力",
+            "耗尽"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_05_appetite",
+          "dimension": "body",
+          "construct": "食欲变化",
+          "prompt": "最近两周吃饭状态有明显变化吗？比如没胃口、吃得很少，或者比平时吃得更多？",
+          "keywords": [
+            "没胃口",
+            "吃不下",
+            "食欲",
+            "暴食",
+            "吃很多",
+            "不想吃"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_06_self_worth",
+          "dimension": "mood",
+          "construct": "自责或自我否定",
+          "prompt": "最近两周，你会不会经常把事情归结为“我不行”“我很失败”或者忍不住责怪自己？",
+          "keywords": [
+            "我不行",
+            "废物",
+            "没用",
+            "自责",
+            "都是我的错",
+            "失败",
+            "否定自己"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_07_concentration",
+          "dimension": "function",
+          "construct": "注意力下降",
+          "prompt": "最近两周，看书、听课、做题或者处理事情时，专注起来困难吗？",
+          "keywords": [
+            "专注",
+            "集中不了",
+            "学不进去",
+            "看不进去",
+            "做题",
+            "效率",
+            "走神"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_08_psychomotor",
+          "dimension": "body",
+          "construct": "动作或说话速度变化",
+          "prompt": "最近两周，有没有觉得自己明显变慢、反应迟钝，或者相反地坐立不安、停不下来？",
+          "keywords": [
+            "变慢",
+            "迟钝",
+            "坐不住",
+            "停不下来",
+            "烦躁",
+            "反应慢"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "phq9_09_safety",
+          "dimension": "safety",
+          "construct": "自伤或轻生想法",
+          "prompt": "我想确认一下安全感：最近两周，你有没有出现过伤害自己、不想活了，或者希望自己消失的念头？",
+          "keywords": [
+            "自杀",
+            "自伤",
+            "不想活",
+            "活不下去",
+            "消失",
+            "死了算了",
+            "结束自己"
+          ],
+          "max_score": 3
+        }
+      ]
+    },
+    {
+      "id": "GAD7",
+      "name": "GAD-7",
+      "label": "焦虑相关症状筛查",
+      "description": "用于评估近两周内紧张、担心、难以控制担忧、难以放松、坐立不安、易烦躁和害怕坏事发生等情况。",
+      "timeWindow": "最近两周",
+      "scoreRange": "0-21",
+      "completionRequired": 7,
+      "severity": [
+        {
+          "level": "low",
+          "min": 0,
+          "max": 4,
+          "label": "低风险或轻微焦虑"
+        },
+        {
+          "level": "medium",
+          "min": 5,
+          "max": 14,
+          "label": "需要关注的中等焦虑风险"
+        },
+        {
+          "level": "high",
+          "min": 15,
+          "max": 21,
+          "label": "高焦虑风险关注"
+        }
+      ],
+      "items": [
+        {
+          "code": "gad7_01_nervous",
+          "dimension": "anxiety",
+          "construct": "紧张或焦虑",
+          "prompt": "最近两周，你紧张、焦虑或者心里发慌的情况多吗？",
+          "keywords": [
+            "焦虑",
+            "紧张",
+            "心慌",
+            "不安",
+            "害怕"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "gad7_02_uncontrolled_worry",
+          "dimension": "anxiety",
+          "construct": "无法停止担心",
+          "prompt": "当担心冒出来时，你能把它停下来吗，还是会不由自主地一直想？",
+          "keywords": [
+            "停不下来",
+            "控制不住",
+            "一直想",
+            "反复想",
+            "脑子停不下来"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "gad7_03_excessive_worry",
+          "dimension": "anxiety",
+          "construct": "过度担心不同事情",
+          "prompt": "最近两周，你会不会同时担心很多事情，好像一件接一件压过来？",
+          "keywords": [
+            "很多事",
+            "各种担心",
+            "一件接一件",
+            "想太多",
+            "担心太多"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "gad7_04_relax",
+          "dimension": "anxiety",
+          "construct": "难以放松",
+          "prompt": "最近两周，你能真正放松下来吗，还是就算休息也像绷着一根弦？",
+          "keywords": [
+            "放松不了",
+            "绷着",
+            "休息不了",
+            "紧绷",
+            "停不下"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "gad7_05_restless",
+          "dimension": "anxiety",
+          "construct": "坐立不安",
+          "prompt": "最近两周，有没有坐不住、来回动，或者心里很躁的感觉？",
+          "keywords": [
+            "坐不住",
+            "坐立不安",
+            "烦躁",
+            "躁",
+            "来回走"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "gad7_06_irritable",
+          "dimension": "anxiety",
+          "construct": "容易烦躁",
+          "prompt": "最近两周，你会不会比平时更容易烦、急，或者一点小事就被点燃？",
+          "keywords": [
+            "烦",
+            "易怒",
+            "发火",
+            "不耐烦",
+            "暴躁"
+          ],
+          "max_score": 3
+        },
+        {
+          "code": "gad7_07_fear",
+          "dimension": "anxiety",
+          "construct": "害怕坏事发生",
+          "prompt": "最近两周，你会不会总担心有什么不好的事情要发生？",
+          "keywords": [
+            "坏事",
+            "出事",
+            "害怕",
+            "糟糕",
+            "完了"
+          ],
+          "max_score": 3
+        }
+      ]
+    },
+    {
+      "id": "ISI",
+      "name": "ISI",
+      "label": "失眠严重程度筛查",
+      "description": "用于评估近期入睡困难、睡眠维持困难、早醒、睡眠满意度、日间影响、他人察觉和睡眠担忧程度。",
+      "timeWindow": "最近两周",
+      "scoreRange": "0-28",
+      "completionRequired": 7,
+      "severity": [
+        {
+          "level": "low",
+          "min": 0,
+          "max": 7,
+          "label": "无明显失眠或轻微睡眠波动"
+        },
+        {
+          "level": "medium",
+          "min": 8,
+          "max": 21,
+          "label": "需要关注的睡眠问题"
+        },
+        {
+          "level": "high",
+          "min": 22,
+          "max": 28,
+          "label": "严重睡眠问题关注"
+        }
+      ],
+      "items": [
+        {
+          "code": "isi_01_sleep_onset",
+          "dimension": "sleep",
+          "construct": "入睡困难",
+          "prompt": "最近两周，入睡困难的程度大概怎样？是很快能睡，还是经常拖到很晚？",
+          "keywords": [
+            "入睡",
+            "睡不着",
+            "很晚才睡",
+            "两三点",
+            "熬夜"
+          ],
+          "max_score": 4
+        },
+        {
+          "code": "isi_02_sleep_maintenance",
+          "dimension": "sleep",
+          "construct": "睡眠维持困难",
+          "prompt": "最近两周，半夜醒来、睡不踏实或者反复醒的情况明显吗？",
+          "keywords": [
+            "半夜醒",
+            "醒来",
+            "睡不踏实",
+            "反复醒",
+            "浅睡"
+          ],
+          "max_score": 4
+        },
+        {
+          "code": "isi_03_early_wake",
+          "dimension": "sleep",
+          "construct": "早醒",
+          "prompt": "最近两周，会不会比预期早很多醒来，而且醒了之后很难再睡？",
+          "keywords": [
+            "早醒",
+            "醒太早",
+            "睡不回去",
+            "醒了就睡不着"
+          ],
+          "max_score": 4
+        },
+        {
+          "code": "isi_04_satisfaction",
+          "dimension": "sleep",
+          "construct": "睡眠满意度",
+          "prompt": "如果给最近两周的睡眠打个感受分，你对它满意吗，还是觉得明显不满意？",
+          "keywords": [
+            "不满意",
+            "睡眠质量",
+            "睡不好",
+            "很差",
+            "不舒服"
+          ],
+          "max_score": 4
+        },
+        {
+          "code": "isi_05_daytime_impact",
+          "dimension": "function",
+          "construct": "日间功能影响",
+          "prompt": "睡眠变差之后，白天学习、情绪、注意力或者身体状态受影响明显吗？",
+          "keywords": [
+            "白天",
+            "困",
+            "没精神",
+            "影响学习",
+            "注意力",
+            "效率"
+          ],
+          "max_score": 4
+        },
+        {
+          "code": "isi_06_noticeable",
+          "dimension": "function",
+          "construct": "他人可察觉影响",
+          "prompt": "这种睡眠问题有没有明显到别人能看出来，比如说你状态差、反应慢或者很疲惫？",
+          "keywords": [
+            "别人看出来",
+            "状态差",
+            "反应慢",
+            "疲惫",
+            "脸色"
+          ],
+          "max_score": 4
+        },
+        {
+          "code": "isi_07_worry",
+          "dimension": "anxiety",
+          "construct": "对睡眠的担忧",
+          "prompt": "你会不会开始担心自己今晚又睡不好，或者一到晚上就提前紧张？",
+          "keywords": [
+            "担心睡不着",
+            "怕睡不好",
+            "晚上紧张",
+            "睡前焦虑"
+          ],
+          "max_score": 4
+        }
+      ]
+    }
+  ]
+}

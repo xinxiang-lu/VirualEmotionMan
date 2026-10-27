@@ -1,0 +1,52 @@
+{
+  "version": "custom_1782482235985",
+  "name": "用户动态心理画像模板",
+  "description": "定义管理员刷新用户画像时，系统需要从历史对话中整理的核心字段。当前版本保持精简，优先服务演示和复核。",
+  "fields": {
+    "academic_status": {
+      "label": "学业状态",
+      "type": "text",
+      "description": "课程、考试、成绩、学习效率、注意力、学业挫败等信息。"
+    },
+    "basic_background": {
+      "label": "基础个人信息",
+      "type": "text",
+      "description": "昵称、账号、性别、年龄、身份/职业，以及历史对话中补充出现的稳定背景信息。"
+    },
+    "emotion_pattern": {
+      "label": "情绪模式",
+      "type": "text",
+      "description": "近期主要情绪、触发因素、持续方式和情绪波动特点。"
+    },
+    "intervention_preferences": {
+      "label": "干预偏好",
+      "type": "list",
+      "description": "用户偏好的陪伴方式、称呼、沟通风格、有效策略和无效策略。"
+    },
+    "main_stressors": {
+      "label": "主要压力源",
+      "type": "list",
+      "description": "近期反复出现或对状态影响明显的压力来源，例如考试、学业、人际、家庭、就业等。"
+    },
+    "recent_context": {
+      "label": "近期关键背景",
+      "type": "list",
+      "description": "最近几轮对话中对理解用户状态很重要的事实或表达。"
+    },
+    "risk_signals": {
+      "label": "风险信号",
+      "type": "list",
+      "description": "需要持续观察或触发人工介入的风险线索，例如安全风险、明显功能下降、状态快速恶化等。"
+    },
+    "sleep_and_body": {
+      "label": "睡眠与身体状态",
+      "type": "text",
+      "description": "入睡、早醒、睡眠质量、疲惫、食欲、身体不适等信息。"
+    },
+    "use_purpose": {
+      "label": "使用目的",
+      "type": "list",
+      "description": "用户使用系统的主要目的，例如情绪陪伴、学习压力支持、人际困扰、睡眠改善、持续记录等。"
+    }
+  }
+}

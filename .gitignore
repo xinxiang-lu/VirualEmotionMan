@@ -1,0 +1,43 @@
+# Secrets and local environments
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+venv/
+# Generated files
+node_modules/
+dist/
+__pycache__/
+*.py[cod]
+*.log
+.vscode/
+.DS_Store
+# User data; retain only configuration templates
+behind/data/*
+!behind/data/profile_template.json
+!behind/data/questionnaire_items.json
+behind/static/
+front/public/test-data/
+# Models, SDKs and local resources
+live2d_service/
+front/public/live2d/
+front/public/live2d-sdk/
+front/public/vendor/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.bin
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.db
+*.sqlite*
+*.zip
+*.7z
+*.tar
+*.gz

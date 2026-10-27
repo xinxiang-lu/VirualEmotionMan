@@ -1,0 +1,119 @@
+:root {
+  color-scheme: light;
+  font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC",
+    "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #38454c;
+  background:
+    radial-gradient(circle at top left, rgba(219, 236, 248, 0.92), transparent 24%),
+    radial-gradient(circle at top right, rgba(234, 226, 248, 0.82), transparent 24%),
+    linear-gradient(180deg, #fbf7f1 0%, #f7f8f8 48%, #eef5f2 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-strong: rgba(255, 255, 255, 0.9);
+  --line-soft: rgba(119, 143, 154, 0.16);
+  --line-strong: rgba(105, 127, 138, 0.28);
+  --text-main: #34424a;
+  --text-soft: #65757d;
+  --brand: #8db4d9;
+  --brand-deep: #648ea5;
+  --mint: #b8dcc9;
+  --lavender: #ddd1f3;
+  --warm: #f3e4d2;
+  --shadow-soft: 0 20px 48px rgba(125, 144, 153, 0.14);
+  --radius-xl: 30px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.card-surface {
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(22px);
+}
+
+.primary-button,
+.ghost-button,
+.soft-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 999px;
+  padding: 0.82rem 1.22rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.primary-button {
+  color: #fff;
+  background: linear-gradient(135deg, #7fa8d2 0%, #7bb4a2 100%);
+  box-shadow: 0 14px 24px rgba(124, 164, 183, 0.28);
+}
+
+.ghost-button {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line-soft);
+}
+
+.soft-button {
+  color: var(--brand-deep);
+  background: rgba(221, 233, 247, 0.86);
+}
+
+.primary-button:hover,
+.ghost-button:hover,
+.soft-button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled,
+.ghost-button:disabled,
+.soft-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
